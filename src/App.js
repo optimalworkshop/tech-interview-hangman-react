@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { random } from 'faker';
+import Game from './Game';
+
 import './App.scss';
 
-function App() {
+const App = () => {
+  const [word, setWord] = useState(random.word().toLowerCase());
+
+  const [gameId, setGameId] = useState(random.uuid);
+
+  const playAgain = () => {
+    setWord(random.word().toLowerCase());
+    setGameId(random.uuid());
+  };
+
   return (
     <div className="app">
-      <header className="app__header">
-        <img src={logo} className="app__logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="app__link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Game key={gameId} word={word} lives={10} onPlayAgainClicked={playAgain} />
     </div>
   );
-}
+};
 
 export default App;
