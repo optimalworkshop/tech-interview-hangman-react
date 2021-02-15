@@ -9,14 +9,9 @@ const App = () => {
 
   const [gameId, setGameId] = useState(random.uuid);
 
-  const playAgain = () => {
-    setWord(random.word().toLowerCase());
-    setGameId(random.uuid());
-  };
-
   return (
     <div className="app">
-      <Game key={gameId} word={word} lives={10} onPlayAgainClicked={playAgain} />
+      <Game key={gameId} word={word} lives={10} />
     </div>
   );
 };

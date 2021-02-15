@@ -6,12 +6,17 @@ const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const Game = ({ word, lives, onPlayAgainClicked }) => {
   const [actualLives, setActualLives] = useState(lives);
 
-  const [guesses, addGuess] = useReducer((set, letter) => new Set(set).add(letter), new Set());
+  const [guesses, addGuess] = useReducer(
+    (set, letter) => new Set(set).add(letter),
+    new Set()
+  );
 
   const masked = word
     .split('')
     .map(letter =>
-      guesses.has(letter) || LETTERS.indexOf(letter.toUpperCase()) === -1 ? letter : '_'
+      guesses.has(letter) || LETTERS.indexOf(letter.toUpperCase()) === -1
+        ? letter
+        : '_'
     );
 
   const guess = letter => {
@@ -24,7 +29,9 @@ const Game = ({ word, lives, onPlayAgainClicked }) => {
   const gameIsWon = word
     .split('')
     .every(
-      letter => guesses.has(letter.toLowerCase()) || LETTERS.indexOf(letter.toUpperCase()) === -1
+      letter =>
+        guesses.has(letter.toLowerCase()) ||
+        LETTERS.indexOf(letter.toUpperCase()) === -1
     );
 
   const gameIsLost = actualLives === 0;
@@ -62,11 +69,6 @@ const Game = ({ word, lives, onPlayAgainClicked }) => {
           </button>
         ))}
       </div>
-      {(gameIsWon || gameIsLost) && (
-        <button className="play-again-button" onClick={onPlayAgainClicked}>
-          Play again
-        </button>
-      )}
     </div>
   );
 };
